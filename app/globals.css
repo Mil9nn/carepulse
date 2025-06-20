@@ -1,26 +1,137 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+    --color-dark-100: #0d0f12;
+    --color-dark-200: #1a1d21;
+    --color-dark-300: #24292f;
+    --color-dark-400: #363a3d;
+    --color-dark-500: #4b5055;
+    --color-dark-600: #abb8c4;
+    --color-dark-700: #c1c8d0;
+    --color-dark-800: #dfe4e9;
+    --color-dark-900: #f5f6f7;
+
+    --color-light-100: #ffffff;
+    --color-light-200: #f0f1f3;
+    --color-light-300: #e0e2e5;
+
+    --colors-green-500: #24ae7c;
+    --colors-green-600: #1e8f6a;
+
+    --colors-blue-500: #007bff;
+    --colors-blue-600: #0056b3;
+
+    --colors-red-500: #ff4d4f;
+    --colors-red-600: #d9363e;
+    --colors-red-700: #c41d1f;
+
+    --colors-black-800: #0d0f12;
+    --colors-black-900: #0a0c0e;
+
+    --text-14-regular: 14px;
+    --text-14-medium: 14px;
+    --text-14-semibold: 14px;
+    --text-16-regular: 16px;
+    --text-16-medium: 16px;
+    --text-16-semibold: 16px;
+    --text-18-regular: 18px;
+    --text-18-medium: 18px;
+    --text-18-semibold: 18px;
+    --text-20-regular: 20px;
+    --text-20-medium: 20px;
+    --text-20-semibold: 20px;
+    --text-24-regular: 24px;
+    --text-24-medium: 24px;
+    --text-24-semibold: 24px;
+    --text-32-regular: 32px;
+    --text-32-medium: 32px;
+    --text-32-semibold: 32px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+.remove-scrollbar {
+    scrollbar-width: none;
+    /* Firefox */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.remove-scrollbar::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, and Opera */
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+.container {
+    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 bg-dark-200;
+}
+
+.sub-container {
+    @apply mx-auto flex size-full flex-col gap-10 py-10;
+}
+
+.shadcn-input {
+    @apply w-full min-w-3xs pl-10 rounded-md border border-dark-300 bg-dark-200 px-3 py-2 text-sm text-dark-900 placeholder:text-dark-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500;
+}
+
+.shadcn-textarea {
+    @apply w-full h-20 min-w-3xs resize-none rounded-md border border-dark-400 bg-dark-200 px-3 py-2 text-sm text-dark-900 placeholder:text-dark-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500;
+}
+
+.shad-select-trigger{
+    @apply w-full min-w-3xs pl-10 rounded-md border border-dark-300 bg-dark-200 px-3 py-2 text-sm text-dark-900 placeholder:text-dark-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500;
+}
+
+.shad-select-content {
+    @apply absolute z-10 mt-1 w-full min-w-3xs overflow-hidden rounded-md border border-dark-300 bg-dark-200 text-sm text-dark-900 shadow-lg;
+}
+
+.shadcn-input-icon {
+    @apply absolute inset-y-0 left-2 top-1 rounded-full flex items-center pointer-events-none text-dark-500;
+}
+
+.shad-primary-btn {
+    @apply inline-flex items-center justify-center rounded-md bg-teal-600 px-4 py-2 text-sm font-medium cursor-pointer text-white shadow-sm hover:bg-teal-700 active:scale-95;
+}
+
+.phone-input {
+    @apply w-full rounded-md border border-dark-300 bg-dark-200 px-3 py-2 text-sm text-dark-900 placeholder:text-dark-500;
+}
+
+
+/****************************************/
+/************CHECKBOX STYLES*************/
+/****************************************/
+.shad-checkbox-container {
+  @apply flex items-start space-x-3 p-1 bg-dark-200/30 hover:bg-dark-200/50 transition-all duration-200 cursor-pointer;
+}
+
+.shad-checkbox {
+  @apply h-4 w-4 rounded border-2 border-dark-400 bg-dark-200 text-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 transition-all duration-200 mt-0.5 cursor-pointer;
+}
+
+.shad-checkbox:checked {
+  @apply bg-blue-500 border-blue-500;
+}
+
+.shad-checkbox-label {
+  @apply text-xs font-medium text-dark-900 leading-5 cursor-pointer select-none flex-1;
+}
+
+.shad-checkbox-container:hover .shad-checkbox {
+  @apply border-dark-300;
+}
+
+.shad-checkbox-container:hover .shad-checkbox-label {
+  @apply text-dark-800;
+}
+
+.shad-checkbox:focus-visible {
+  @apply ring-2 ring-blue-500 ring-offset-2 ring-offset-dark-100 outline-none;
+}
+
+.shad-checkbox:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.shad-checkbox:disabled + .shad-checkbox-label {
+  @apply opacity-50 cursor-not-allowed;
 }
