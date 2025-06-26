@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Form } from "@/components/ui/form";
-import CustomFormField, { FormFieldType } from "../ui/CustomFormField";
-import SubmitButton from "../ui/SubmitButton";
+import CustomFormField, { FormFieldType } from "../CustomFormField";
+import SubmitButton from "../SubmitButton";
 import { useState } from "react";
 
 // import UserFormValidation here
@@ -36,7 +36,6 @@ export function PatientForm() {
         email,
         phone
       }
-      console.log("Creating user with data:", userData);
       const user = await createUser(userData);
       if(user) router.push(`/patients/${user.$id}/register`);
     } catch (error) {
@@ -48,13 +47,13 @@ export function PatientForm() {
 
   return (
     <Form {...form}>
-      <section className="flex flex-col justify-center gap-1 mb-5">
+      <section className="flex flex-col justify-center gap-1">
         <h2 className="text-2xl font-bold">Hi there👋</h2>
         <p className="text-sm opacity-55 font-extralight">
           Schedule your first appointment
         </p>
       </section>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mb-12">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <CustomFormField
           fieldType={FormFieldType.INPUT}
           control={form.control}

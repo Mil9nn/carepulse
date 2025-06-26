@@ -48,6 +48,9 @@
     --text-32-semibold: 32px;
 }
 
+.copyright {
+    @apply text-xs text-dark-500 text-center mt-4;
+}
 
 .remove-scrollbar {
     scrollbar-width: none;
@@ -61,7 +64,7 @@
 
 
 .container {
-    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 bg-dark-200;
+    @apply mx-auto px-4 sm:px-6 lg:px-8 bg-dark-200;
 }
 
 .sub-container {
@@ -69,19 +72,19 @@
 }
 
 .shadcn-input {
-    @apply w-full min-w-3xs pl-10 rounded-md border border-dark-300 bg-dark-200 px-3 py-2 text-sm text-dark-900 placeholder:text-dark-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500;
+    @apply w-full pl-10 rounded-md border border-dark-300 bg-dark-200 px-3 py-2 text-sm text-dark-900 placeholder:text-dark-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500;
 }
 
 .shadcn-textarea {
-    @apply w-full h-20 min-w-3xs resize-none rounded-md border border-dark-400 bg-dark-200 px-3 py-2 text-sm text-dark-900 placeholder:text-dark-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500;
+    @apply w-full h-20 rounded-md border border-dark-400 bg-dark-200 px-3 py-2 text-sm text-dark-900 placeholder:text-dark-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500;
 }
 
 .shad-select-trigger{
-    @apply w-full min-w-3xs pl-10 rounded-md border border-dark-300 bg-dark-200 px-3 py-2 text-sm text-dark-900 placeholder:text-dark-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500;
+    @apply w-full min-w-3xs rounded-md border border-dark-300 bg-dark-200 px-3 py-5 text-sm text-dark-900 placeholder:text-dark-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500;
 }
 
 .shad-select-content {
-    @apply absolute z-10 mt-1 w-full min-w-3xs overflow-hidden rounded-md border border-dark-300 bg-dark-200 text-sm text-dark-900 shadow-lg;
+    @apply absolute z-100 mt-1 w-full min-w-3xs overflow-hidden rounded-md border border-dark-300 bg-dark-200 text-sm text-dark-900 shadow-lg;
 }
 
 .shadcn-input-icon {
@@ -92,8 +95,46 @@
     @apply inline-flex items-center justify-center rounded-md bg-teal-600 px-4 py-2 text-sm font-medium cursor-pointer text-white shadow-sm hover:bg-teal-700 active:scale-95;
 }
 
-.phone-input {
-    @apply w-full rounded-md border border-dark-300 bg-dark-200 px-3 py-2 text-sm text-dark-900 placeholder:text-dark-500;
+.dummy-input {
+    @apply w-full flex items-center gap-2 rounded-md border border-dark-300 bg-dark-100 px-3 py-2 text-sm text-dark-900 placeholder:text-dark-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500;
+}
+
+.request-details {
+    @apply flex items-center justify-center gap-2 text-sm border-t border-t-dark-500/30 border-b p-2 border-b-dark-500/30;
+}
+
+/****************************************/
+/************PHONE INPUT***************/
+
+.PhoneInput {
+  background-color: #1a1d21;
+  border: 1px solid #3c4450;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+.PhoneInputInput {
+  background-color: transparent;
+  color: white;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.PhoneInputCountry {
+  background-color: #27272a; /* bg-zinc-800 */
+  border-right: 1px solid #3f3f46;
+}
+
+.PhoneInputCountrySelect {
+  background-color: #27272a;
+  color: white;
+  padding: 1rem; 
+}
+
+/* Optional: native select dropdown (for accessibility) */
+.PhoneInputCountrySelect:focus {
+  outline: none;
 }
 
 
@@ -101,15 +142,15 @@
 /************CHECKBOX STYLES*************/
 /****************************************/
 .shad-checkbox-container {
-  @apply flex items-start space-x-3 p-1 bg-dark-200/30 hover:bg-dark-200/50 transition-all duration-200 cursor-pointer;
+  @apply flex items-start space-x-3 p-1;
 }
 
 .shad-checkbox {
-  @apply h-4 w-4 rounded border-2 border-dark-400 bg-dark-200 text-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 transition-all duration-200 mt-0.5 cursor-pointer;
+  @apply h-4 w-4 rounded border-2 border-blue-400/20 text-blue-400 mt-0.5 cursor-pointer;
 }
 
 .shad-checkbox:checked {
-  @apply bg-blue-500 border-blue-500;
+  @apply border-blue-500;
 }
 
 .shad-checkbox-label {
@@ -117,15 +158,7 @@
 }
 
 .shad-checkbox-container:hover .shad-checkbox {
-  @apply border-dark-300;
-}
-
-.shad-checkbox-container:hover .shad-checkbox-label {
-  @apply text-dark-800;
-}
-
-.shad-checkbox:focus-visible {
-  @apply ring-2 ring-blue-500 ring-offset-2 ring-offset-dark-100 outline-none;
+  @apply opacity-60;
 }
 
 .shad-checkbox:disabled {
@@ -135,3 +168,98 @@
 .shad-checkbox:disabled + .shad-checkbox-label {
   @apply opacity-50 cursor-not-allowed;
 }
+
+
+/****************************************/
+/************RADIO BUTTON STYLES***********/
+
+.radio-group {
+  @apply flex items-center gap-2 bg-dark-200 border border-dark-400 border-dashed  p-3 rounded-sm;
+}
+
+.radio-item {
+  @apply h-4 w-4 rounded-full border-2 border-zinc-500 bg-white data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500 transition-colors duration-200 cursor-pointer;
+}
+
+.radio-group label {
+  @apply text-sm font-medium cursor-pointer;
+}
+
+/****************************************/
+/************FILE UPLOAD STYLES***********/
+
+.file-upload-wrapper {
+  @apply relative flex flex-col items-center justify-center rounded-md border-2 border-dashed border-dark-300 bg-dark-100 p-6 text-dark-700 transition-all duration-300 hover:border-blue-500 hover:bg-dark-200;
+}
+
+.file-upload {
+  @apply w-full min-w-3xs pl-10 rounded-md border border-dark-300 bg-dark-200 px-3 py-2 text-sm text-dark-900 placeholder:text-dark-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500;
+}
+
+
+.file-upload-icon {
+  @apply mb-3 h-10 w-10 text-blue-500;
+}
+
+.file-upload-text {
+  @apply text-sm flex items-center justify-center gap-2 text-dark-500;
+}
+
+.shad-error {
+  @apply text-red-500 text-xs;
+}
+
+/***********************************/
+/************Date Picker***********/
+
+.appointment-details {
+  @apply flex flex-col gap-3;
+}
+
+/*****************************************/
+/*************OTP VERIFICATION***********/
+.shad-otp {
+  @apply flex justify-center gap-3 sm:gap-4 mt-4 mb-6;
+}
+
+.shad-otp-slot {
+  @apply w-12 h-12 sm:w-14 sm:h-14 text-center text-lg font-semibold border border-zinc-700 bg-zinc-900 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-150;
+}
+
+.admin-header {
+  @apply flex items-center justify-between bg-dark-200 p-4 shadow-md;
+}
+
+.stats-card {
+  @apply flex flex-col items-start gap-3 justify-center bg-dark-100 max-w-md text-white rounded-md p-6 shadow-lg border border-dark-400/50;
+}
+
+
+/****************************************/
+/*************DATA TABLE***********/
+
+.data-table {
+  @apply w-full rounded-md bg-[#161616] shadow-md;
+}
+
+.shad-table {
+  @apply w-full text-sm text-left text-dark-900 bg-dark-200 border border-dark-300;
+}
+
+.shad-table-row-header {
+  @apply bg-black text-dark-900 border border-dark-300 font-semibold;
+}
+
+.shad-table-row {
+  @apply border-b border-dark-300 bg-dark-200 text-dark-900 hover:bg-dark-300 transition-colors duration-200;
+}
+
+.table-actions {
+  @apply flex items-center justify-between space-x-2 p-4;
+}
+
+.success-img {
+  @apply flex flex-col items-center justify-center gap-2 p-4 rounded-md;
+}
+
+/*data-table: rounded-md shadow-md bg-[#161616] */

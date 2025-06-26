@@ -1,3 +1,4 @@
+import { z } from "zod";
 import React from "react";
 import {
   FormControl,
@@ -7,19 +8,26 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Control } from "react-hook-form";
+import { Control, ControllerRenderProps, FieldValues } from "react-hook-form";
 import Image from "next/image";
-import { Checkbox } from "./checkbox";
-import { Select, SelectContent, SelectTrigger, SelectValue } from "./select";
+import { Checkbox } from "./ui/checkbox";
+import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 
-import 'react-phone-number-input/style.css'
-import ReactDatePicker from "react-datepicker";
 import PhoneInput from "react-phone-number-input";
-import { E164Number } from 'libphonenumber-js';
+import "react-phone-number-input/style.css";
+import "react-datepicker/dist/react-datepicker.css";
+import { E164Number } from "libphonenumber-js";
+import DatePicker from "react-datepicker";
+import { Textarea } from "./ui/textarea";
+import { PatientFormValidation } from "@/lib/validation";
 
-interface CustomProps {
-  control: Control<any>;
-  name: string;
+import type { Path } from "react-hook-form";
+
+type PatientFormValues = z.infer<typeof PatientFormValidation>;
+
+interface CustomProps<T extends FieldValues = PatientFormValues> {
+  control: Control<T>;
+  name: Path<T>;
   label?: string;
   placeholder?: string;
   iconSrc?: string;
@@ -28,11 +36,17 @@ interface CustomProps {
   dateFormat?: string;
   showTimeSelect?: boolean;
   children?: React.ReactNode;
-  renderSkeleton?: (field: any) => React.ReactNode;
+  renderSkeleton?: (field: ControllerRenderProps<T, Path<T>>) => React.ReactNode;
   fieldType?: FormFieldType;
 }
 
-const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
+const RenderInput = <T extends FieldValues>({
+  field,
+  props,
+}: {
+  field: ControllerRenderProps<T, Path<T>>;
+  props: CustomProps<T>;
+}) => {
   const { fieldType, iconSrc, iconAlt, placeholder } = props;
   switch (fieldType) {
     case FormFieldType.INPUT:
@@ -59,12 +73,12 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
     case FormFieldType.TEXTAREA:
       return (
         <FormControl>
-          <textarea
+          <Textarea
             placeholder={placeholder}
             {...field}
             className="shadcn-textarea"
             disabled={props.disabled}
-          ></textarea>
+          />
         </FormControl>
       );
     case FormFieldType.CHECKBOX:
@@ -78,10 +92,7 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
               className="shad-checkbox"
               disabled={props.disabled}
             />
-            <label 
-              htmlFor={props.name} 
-              className="shad-checkbox-label"
-            >
+            <label htmlFor={props.name} className="shad-checkbox-label">
               {props.label}
             </label>
           </div>
@@ -89,16 +100,23 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
       );
     case FormFieldType.DATE_PICKER:
       return (
-        <FormControl>
-          <ReactDatePicker>
-            showTimeSelect={props.showTimeSelect}
+        <div className="flex items-center rounded-md border p-1 border-dark-400 bg-dark-200">
+          <Image
+            src="/assets/icons/calendar.svg"
+            alt="calendar icon"
+            width={25}
+            height={25}
+            className="mx-1"
+          />
+          <DatePicker
             selected={field.value}
-            onChange={(date: Date) => field.onChange(date)}
-            timeInputLabel={"Time:"}
-            dateFormat={props.dateFormat || "yyy/MM/dd"}
-            wrapperClassName={"date-picker"}
-          </ReactDatePicker>
-        </FormControl>
+            onChange={(date) => field.onChange(date)}
+            dateFormat={props.dateFormat ?? "MM/dd/yyyy"}
+            showTimeSelect={props.showTimeSelect ?? false}
+            timeInputLabel="Time:"
+            className="outline-2 outline-dark-500 bg-dark-200 text-white rounded-md px-5 ml-2 py-1 w-full"
+          />
+        </div>
       );
     case FormFieldType.PHONE_INPUT:
       return (
@@ -110,7 +128,6 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
             withCountryCallingCode
             value={field.value as E164Number | undefined}
             onChange={field.onChange}
-            className="phone-input"
           />
         </FormControl>
       );
@@ -120,7 +137,9 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
               <SelectTrigger className="shad-select-trigger">
-                <SelectValue placeholder={props.placeholder} />
+                <div className="bg-dark-400 px-2 py-1 rounded-md">
+                  <SelectValue placeholder={props.placeholder} />
+                </div>
               </SelectTrigger>
             </FormControl>
             <SelectContent className="shad-select-content">
@@ -146,7 +165,7 @@ export enum FormFieldType {
   SKELETON = "skeleton",
 }
 
-const CustomFormField = (props: CustomProps) => {
+const CustomFormField = <T extends FieldValues>(props: CustomProps<T>) => {
   const { control, name, label, fieldType } = props;
 
   return (
@@ -155,12 +174,14 @@ const CustomFormField = (props: CustomProps) => {
       name={name}
       render={({ field }) => (
         <FormItem>
-          {fieldType !== FormFieldType.CHECKBOX && <FormLabel>{label}</FormLabel>}
+          {fieldType !== FormFieldType.CHECKBOX && (
+            <FormLabel>{label}</FormLabel>
+          )}
           <FormControl>
             {/* RenderInput component comes here */}
             <RenderInput field={field} props={props} />
           </FormControl>
-          <FormMessage />
+          <FormMessage className="shad-error" />
         </FormItem>
       )}
     />

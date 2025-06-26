@@ -1,14 +1,16 @@
 import { RegisterForm } from '@/components/forms/RegisterForm'
+import { getUser } from '@/lib/actions/patient.actions'
 import Image from 'next/image'
-import Link from 'next/link'
 import React from 'react'
 
-const Register = () => {
-  return (
-    <div className="flex h-screen max-h-screen bg-indigo-500">
-      {/* ToDo: OTP verification | Passkey Modal */}
+const Register = async ({ params }: { params: Promise<{userId: string}> }) => {
+  const { userId } = await params;
+  const user = await getUser(userId);
 
-      <section className="remove-scrollbar container my-auto">
+  return (
+    <div className="flex h-screen max-h-screen">
+
+      <section className="remove-scrollbar container overflow-y-scroll">
         <div className="sub-container max-w-[600px]">
           <Image 
             src="/assets/icons/logo-full.svg"
@@ -17,11 +19,7 @@ const Register = () => {
             height={1000}
             className="w-fit h-10 mb-5"
           />
-          <RegisterForm />
-          <div className="text-14-regular flex justify-between">
-            <p className="justify-items-end text-dark-600 xl:text-left">&copy; 2024 CarePulse . All rights reserved.</p>
-            <Link href='/?admin=true' className="text-green-500">Admin</Link>
-          </div>
+          <RegisterForm user={user} />
         </div>
       </section>
 
