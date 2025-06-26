@@ -51,7 +51,7 @@ const success = async ({ params, searchParams }: { params: Promise<{userId: stri
               width={25}
               height={25}
             />
-            <p className="whitespace-nowrap text-sm">Dr. {doctor?.name}</p>
+            <p className="text-sm whitespace-nowrap">Dr. {doctor?.name}</p>
           </div>
           <div className="flex items-center gap-1">
             <Image

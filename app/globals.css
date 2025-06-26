@@ -100,7 +100,7 @@
 }
 
 .request-details {
-    @apply flex items-center justify-center gap-2 text-sm border-t border-t-dark-500/30 border-b p-2 border-b-dark-500/30;
+    @apply flex md:flex-row flex-col items-center justify-between gap-5 text-sm border-t border-t-dark-500/30 border-b p-2 border-b-dark-500/30;
 }
 
 /****************************************/
